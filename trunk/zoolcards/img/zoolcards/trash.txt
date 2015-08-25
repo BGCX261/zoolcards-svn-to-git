@@ -1,0 +1,126 @@
+
+<groupbox id="zool-panel" name="zool-panel" height="150" top="0" left="0" style="overflow: auto;background-color: green">
+<caption label="properties"/>
+<grid >
+  <rows>
+    <row/>
+    <row/>
+    <row/>
+  </rows>
+
+  <columns>
+    <column>
+      <label control="first" value="First Name:"/>
+      <label control="middle" value="Middle Name:"/>
+      <label control="last" value="Last Name:"/>
+    </column>
+    <column>
+      <textbox id="first"/>
+      <textbox id="middle"/>
+      <textbox id="last"/>
+    </column>
+  </columns>
+
+
+</grid>
+</groupbox>
+
+
+<tree id="properties" hidecolumnpicker="true" flex="1" style="font: 10px Arial" editable="true">
+  <treecols>
+    <treecol id="property" name="property" label="Property"  primary="true"/>
+    <splitter class="tree-splitter"/>
+    <treecol id="value"    name="value"    label="value"    flex="1" editable="true" />
+  </treecols>
+  <treechildren>
+
+    <treeitem>
+      <treerow>
+        <treecell label="Name"/>
+        <treecell label="Bob"/>
+      </treerow>
+    </treeitem>
+
+    <treeitem>
+      <treerow>
+        <treecell label="Age"/>
+        <treecell label="35" editable="true"/>
+      </treerow>
+    </treeitem>
+
+
+  </treechildren>
+</tree>
+
+
+
+
+
+
+    //Start adding a grid, which does the resizing without impacting the label/caption of the groupbox
+    var grid = document.createElement( "grid" );
+    //Most likely we need another shortcut for object generation
+    grid.id = "grid";
+    grid.name = "grid";
+    c.appendChild( grid );
+    grid.style.overflow = "auto";
+    grid.setAttribute( "height", "300");
+    grid.setAttribute( "width", "300");
+    //grid needs really to be resized, even though the zool panel is doing the heavy lifting
+    c.resizeTarget = grid;  //Even though the resize event happens on the panel, its the grid that resizes
+    c.resizeWidth  = true;  //However both panel and grid most grow width wise 
+    grid.resizeSource = c;  //The grid needs to know where the event comes from in case of dual resizing
+
+    //Did I mention that I need a helper for object creation ;)
+    var columns = document.createElement( "columns" ); //A container for columns, aptly called columns
+    columns.id = "columns";
+    columns.name = "columns";
+    grid.appendChild( columns );
+
+    var column = document.createElement( "column" );
+    column.id = "column";
+    column.name = "column";
+    columns.appendChild( column );
+
+    for( var a in e.target ){
+      try
+      {
+        if( typeof a != "function" && (typeof e.target[a]) != "function" ){
+          var o = document.createElement( "label" );
+          o.id = "label";
+          o.name = "label";
+          o.setAttribute( "value" , a + "," + e.target[a] );
+          column.appendChild( o );
+        }
+      }
+      catch (er) { type = 2; }
+    }
+
+    column = document.createElement( "column" );
+    column.id = "column2";
+    column.name = "column2";
+    columns.appendChild( column );
+
+    for( var a in e.target ){
+      try
+      {
+        if( typeof a != "function" && (typeof e.target[a]) != "function" ){
+          if( typeof e.target[a] == "string" ){
+            var o = document.createElement( "textbox" );
+            o.id = "_" + a;
+            o.name = "_" + a;
+            o.setAttribute( "value" , e.target[a] );
+            //o.style.border = "1px solid black";
+            column.appendChild( o );
+          }else{
+            var o = document.createElement( "label" );
+            o.id = "label";
+            o.name = "label";
+            o.setAttribute( "value" , typeof e.target[a] );
+            column.appendChild( o );
+          }
+        }
+      }
+      catch (er) { type = 2; }
+    }
+

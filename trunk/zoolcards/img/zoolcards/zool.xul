@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!-- 
+/********************************************************************************************************************************************\
+|* Zool cards by Konijn                                                                                                                     *|
+|* Copyright (C) 2008 Konijn                                                                                                                *|
+|*                                                                                                                                          *|
+|* This program is free software; you can redistribute it and/or modify it under the terms of the GNU GPL Version 2 as published by the FSF *|
+|* See copying.txt                                                                                                                          *|
+|* Dedicated to Segolene de Basquiat                                                                                                        *|
+\********************************************************************************************************************************************/
+-->
+<?xml-stylesheet href="zool.css" type="text/css"?>
+<!DOCTYPE window>
+
+<window id="main-window" xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        title="Zool Card"
+        onmousemove = "globalMouseMove(event);"
+        onmouseup   = "globalMouseUp(event);">
+
+<html:script language="javascript" src="zool_shell.js"/>
+<html:script language="javascript" src="zool.js"/>
+
+  <command id="hello_world" oncommand="helloWorld();"/>
+  <command id="add_button"  oncommand="addZoolChild( 'button' , 'button2' );"/>
+  <command id="add_text_area"    oncommand="o=addZoolChild( 'textbox' ,  'text2' );o.setAttribute('multiline', 'true');o.height = 200;o.width  = 250;"/>
+  <command id="add_text_line"    oncommand="o=addZoolChild( 'textbox' ,  'text2' );o.multiline='true';"/>
+  <command id="add_image"   oncommand="o=addZoolChild( 'image' , 'image2' );o.src='img/question.gif';"/>
+  <command id="add_button"  oncommand="addZoolChild( 'button' , 'button2' );"/>
+  <command id="add_label"  oncommand="o=addZoolChild( 'label' , 'label' );o.value='Label'"/>
+
+  <menubar style="background: url(img/gradient.png) repeat;">
+      <menu name="File" id="File" label="File" accesskey="F">
+ 	  <menupopup id="action-popup" >
+        <menuitem name="Hello World 1" label="Add Button" command="add_button" />
+        <menuitem name="Hello World 2" label="Hello World 2" onclick="helloWorld();" />
+		</menupopup>
+      </menu>
+      <menu name="Insert" id="Insert" label="Insert" accesskey="I">
+ 	  <menupopup id="action-popup" >
+        <menuitem name="add_label" label="Add Label" command="add_label" />
+        <menuitem name="add_text_line" label="Add Text Line" command="add_text_line" />
+        <menuitem name="add_text_area" label="Add Text Area" command="add_text_area" />
+		<menuitem name="add_button" label="Add Button" command="add_button" />
+        <menuitem name="add_image" label="Add Image" command="add_image" />
+        <menuitem id="auto_label" label="Auto Label" type="checkbox" checked="true" />
+		</menupopup>
+      </menu>
+
+	  <spacer flex="1"/>
+	  <menu name="status" id="status" label="Status">
+ 	  <menupopup id="action-popup2">
+		</menupopup>
+	  </menu>
+  </menubar>
+
+<bulletinboard id="zool" name="zool" style="width:800px; height:600px;border: 1px solid black" > 
+
+</bulletinboard>
+
+
+
+</window>
